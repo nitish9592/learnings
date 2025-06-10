@@ -101,6 +101,7 @@ int main(){
     display(head);
     deleteAtHead(head);
     display(head);
+    cout<<"git";
 
 
     
