@@ -1,15 +1,21 @@
 #include <iostream>
-#include<math.h>
-using namespace std;
+#include <cmath> // For floating-point abs()
+#include <cstdlib> // For integer abs()
 
-int main (){
+int main() {
+    int num1 = -10;
+    int num2 = 5;
 
-    int a=2;
-    int b=3;
-    swap(a,b);
-    cout<<a;
+    // For integers
+    int absoluteDifferenceInt = std::abs(num1 - num2);
+    std::cout << "Absolute difference (int): " << absoluteDifferenceInt << std::endl; // Output: 15
 
+    double num3 = 10.5;
+    double num4 = -5.2;
 
-    
+    // For floating-point numbers
+    double absoluteDifferenceDouble = std::abs(num3 - num4);
+    std::cout << "Absolute difference (double): " << absoluteDifferenceDouble << std::endl; // Output: 15.7
+
     return 0;
 }
