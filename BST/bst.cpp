@@ -22,6 +22,7 @@ Node* insertBST(Node *root, int val){
     }
     return root;
 }
+
 void inorderPrint(Node* root) {
     if (root == NULL) {
         return;
