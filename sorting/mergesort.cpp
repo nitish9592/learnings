@@ -1,67 +1,50 @@
 #include <iostream>
-#include<math.h>
+#include <vector>
 using namespace std;
-void merge(int arr[], int l , int mid ,int r){
 
-    int n1 =mid-l+1;
-    int n2 =r-mid;
-    int a[n1];
-    int b[n2];//temp arrays
+// Merge two sorted halves
+void merge(vector<int>& arr, int low, int mid, int high) {
+    vector<int> temp;
+    int left = low;
+    int right = mid + 1;
 
-    for(int i=0; i<n1;i++){
-        a[i]=arr[l+i]; 
-    }
-    for(int i=0; i<n1;i++){
-        b[i]=arr[mid+1+i];
-
-    }
-    int i=0,j=0,k; 
-    while(i<n1&& j<n2){
-        if(a[i]<b[j]){
-            arr[k]=a[i];
-            i++; k++;
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temp.push_back(arr[left++]);
+        } else {
+            temp.push_back(arr[right++]);
         }
-        else{
-            arr[k]=b[j];
-            j++;k++;
-        }
-    while(i<n1){//if a size is greater than b
-        arr[k]=a[i];
-        i++; k++;
-    }
-    while(j<n2){//if b size is greater than a
-        arr[k]=b[j];
-        j++;k++;
-    }
-    
     }
 
-    
-    
+    // Remaining elements
+    while (left <= mid) {
+        temp.push_back(arr[left++]);
+    }
+    while (right <= high) {
+        temp.push_back(arr[right++]);
     }
 
-void mergeSort(int arr[],int l, int r){
-    if(l<r){
-        int mid =(l+r)/2;
-        mergeSort(arr,l,mid);
-        mergeSort(arr,l+1,r);
-        merge(arr,l,mid,r);
+    // Copy back to original array
+    for (int i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
     }
-    else return;
-} 
+}
 
-int main (){
+// Recursive merge sort
+void mergeSort(vector<int>& arr, int low, int high) {
+    if (low >= high) return;
 
-    int arr[]={8,4,6,3,6};
+    int mid = low + (high - low) / 2;
+    mergeSort(arr, low, mid);        // Sort left half
+    mergeSort(arr, mid + 1, high);   // Sort right half
+    merge(arr, low, mid, high);      // Merge both halves
+}
 
+int main() {
+    vector<int> arr = {5, 2, 4, 1, 3};
+    mergeSort(arr, 0, arr.size() - 1);
 
-    mergeSort(arr,0,4);
-    for(int i = 0;i<5;i++){
-        cout<<arr[i]<<" ";
-        cout<<endl;
-    }
-
-
-    
+    for (int num : arr)
+        cout << num << " ";
     return 0;
 }
